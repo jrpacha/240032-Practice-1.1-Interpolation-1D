@@ -1,6 +1,6 @@
 # matlabSession-240032_11-02-2019
 
-Matlab session Monday 11-02-2019
+Matlab session Tuesday 11-02-2019
 
 P1.1-Interpolation 1D. Session's source code. 
 
@@ -18,4 +18,4 @@ Many thanks,
 
 J.R.
 
-07-03-2019
+09-09-2019
