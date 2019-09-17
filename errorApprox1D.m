@@ -24,11 +24,8 @@ for i=1:size(degree,2)
     yy = polyval(p,xOrig);
     meanErr = sum(abs(yy-yOrig))/numPoints;
     maxErr = max(abs(yy-yOrig));
+    %FPRINTF formatted output: Error values are printed with 5 decimal 
+    %places and 14 chars of total width, so the corresponding format spec 
+    % is either %14.5E or %14.4e.
     fprintf(1,'%3d%14.5E%14.5E\n',degree(i),meanErr,maxErr);
 end
-
-
-
-    
-    
-    
