@@ -1,4 +1,4 @@
-# Practice 1.1
+# Practice 1.1. Interpolation 1D
 
 ## P1.1-Interpolation 1D. 
 
@@ -16,4 +16,4 @@ Many thanks,
 
 J.R.
 
-09-09-2019
+10-02-2020
