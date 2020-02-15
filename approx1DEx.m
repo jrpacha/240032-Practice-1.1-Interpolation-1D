@@ -108,4 +108,3 @@ yy=spline(xp,yp,xOrig);
 plot(xOrig,yy,'-b')
 title('1D spline approximation')
 hold off
-

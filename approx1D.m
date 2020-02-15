@@ -9,8 +9,6 @@ x=a:0.2:b;
 y=f(x);
 xOrig=a:0.01:b;
 yOrig=f(xOrig);
-xp=a:0.1:b;
-yp=f(xp);
 
 degree=[3,5,7,10];
 
@@ -34,6 +32,8 @@ for i=1:size(degree,2)
 end
 
 % Polygonal
+xp=a:0.1:b;
+yp=f(xp);
 subplot(3,2,5)
 plot(xp,yp,'o','Marker','o','LineWidth',2,'MarkerFaceColor','red',...
             'LineWidth',2,'MarkerEdgeColor','black');
