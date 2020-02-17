@@ -85,7 +85,5 @@ for i=1:size(degree,2)
     %places and 14 chars of total width, so the corresponding format spec 
     % is either %14.5E or %14.4e.
     fprintf(1,'%3d%14.5E%14.5E\n',degree(i),meanErr,maxErr);
-end
-    
-    
+end    
     
