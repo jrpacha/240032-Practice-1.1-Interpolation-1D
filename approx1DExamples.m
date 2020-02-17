@@ -5,7 +5,7 @@ close all
 x=[0,1,2,3];
 y=[1,3,5,2];
 
-p = polyfit(x,y,3) % p = p(1) x^3 + p(2) x^2 + p(3) x + p(4)
+p = polyfit(x,y,3); % p = p(1) x^3 + p(2) x^2 + p(3) x + p(4)
 
 xx=0:0.1:3; % points to plot the polynomial
 yy=polyval(p,xx);
@@ -17,7 +17,6 @@ hold on;
 plot(x,y,'o','MarkerFaceColor','green','MarkerSize',8,...
     'MarkerEdgeColor','black','LineWidth',2)
 hold off
-
 
 %% Degree 3 approximation
 a=-1;
@@ -61,7 +60,7 @@ plot(x,y,'o','MarkerFaceColor','green','MarkerSize',8,...
     'MarkerEdgeColor','black','LineWidth',2) %Approximation points
 
 %Polyfit degree 7 function
-p=polyfit(x,y,7)
+p=polyfit(x,y,7);
 yy=polyval(p,xOrig);
 plot(xOrig,yy,'--b');
 title('Degree 7 approximation')
@@ -79,7 +78,7 @@ yp=f(xp);
 xOrig=a:0.01:b;
 yOrig=f(xOrig);
 figure()
-plot(xOrig,yOrig,'--m') %original function
+plot(xOrig,yOrig,'--b') %original function
 hold on;
 plot(xp,yp,'o','MarkerFaceColor','green','MarkerSize',8,...
     'MarkerEdgeColor','black','LineWidth',2) %Approximation points
