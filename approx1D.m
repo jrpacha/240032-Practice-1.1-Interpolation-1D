@@ -9,6 +9,7 @@ x=a:0.2:b;
 y=f(x);
 xOrig=a:0.01:b;
 yOrig=f(xOrig);
+ymax=max(yOrig); 
 
 degree=[3,5,7,10];
 
@@ -21,13 +22,21 @@ for i=1:size(degree,2)
     plot(xOrig,yOrig,'-r')
     p = polyfit(x,y,degree(i));
     yy = polyval(p,xOrig);
+    yymax=max(yy);
+    y0=min([-0.2,yy]);
+    y1=max(ymax,yymax);
     plot(xOrig,yy,'--b')
     if (degree(i) < 10)
-        title(['Degree ',num2str(degree(i)),' approximation']);
+        title(['Degree ',num2str(degree(i)),' approximation'],...
+            'interpreter','LaTeX');
     else
-        title(['Degree ',num2str(degree(i)),' interpolation']);
+        title(['Degree ',num2str(degree(i)),' interpolation'],...
+            'interpreter','LaTeX');
     end
-    axis([-1,1,-0.2,1])
+    xlabel('$x$','interpreter','LaTeX')
+    ylabel('$y$','interpreter','LaTeX')
+    axis([-1,1,y0,y1]);
+    %axis([-1,1,-0.2,1]);
     hold off
 end
 
@@ -41,7 +50,10 @@ hold on
 plot(xOrig,yOrig,'-r')
 yyp = interp1(xp,yp,xOrig);
 plot(xOrig,yyp,'--b')
-title('1D polygonal approximation')
+title('1D polygonal approximation',...
+    'interpreter','LaTeX')
+xlabel('$x$','interpreter','LaTeX')
+ylabel('$y$','interpreter','LaTeX')
 hold off
 
 % Spline
@@ -52,7 +64,10 @@ hold on
 plot(xOrig,yOrig,'-r')
 yys = spline(xp,yp,xOrig);
 plot(xOrig,yys,'--b')
-title('1D spline approximation')
+title('1D cubic spline approximation',...
+    'interpreter','LaTeX')
+xlabel('$x$','interpreter','LaTeX')
+ylabel('$y$','interpreter','LaTeX')
 hold off
 
 % ========================================================================
