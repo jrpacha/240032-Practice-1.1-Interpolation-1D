@@ -22,9 +22,9 @@ for i=1:size(degree,2)
     plot(xOrig,yOrig,'-r')
     p = polyfit(x,y,degree(i));
     yy = polyval(p,xOrig);
-    yymax=max(yy);
-    y0=min([-0.2,yy]);
-    y1=max(ymax,yymax);
+    %yymax=max(yy);
+    %y0=min([-0.2,yy]);
+    %y1=max(ymax,yymax);
     plot(xOrig,yy,'--b')
     if (degree(i) < 10)
         title(['Degree ',num2str(degree(i)),' approximation'],...
@@ -35,7 +35,9 @@ for i=1:size(degree,2)
     end
     xlabel('$x$','interpreter','LaTeX')
     ylabel('$y$','interpreter','LaTeX')
-    axis([-1,1,y0,y1]);
+    ymax=max([yOrig,yy]);
+    ymin=min([yOrig,yy]);
+    axis([-1,1,ymin,ymax]);
     %axis([-1,1,-0.2,1]);
     hold off
 end
@@ -77,7 +79,7 @@ hold off
 % degree for the measure points x=a:0.2:b and y=f(x). (Use 
 % all plotted points, xx=a:0.01:b to compute errors).
 
-f=@(x) 1./(1+25*x.^2);
+f=@(x) 1./(1+25*x.^2); %Yes, already defined at the beginning (redundant)
 
 a=-1;
 b=1;
@@ -85,20 +87,24 @@ x=a:0.2:b;
 y=f(x);
 xOrig=a:0.01:b;
 yOrig=f(xOrig);
-numPoints = size(xOrig,2);
+numPoints = length(xOrig); %number of points in the "large" sample
 
-degree=[3,5,7,9];
+degree=[3,5,7,10];
 
 fprintf(1,'Exercise 1:\n');
 fprintf(1,'%5s%11s%14s\n','DEG.','MEAN.ERR.','MAX.ERR.');
-for i=1:size(degree,2)
-    p = polyfit(x,y,degree(i));
-    yy = polyval(p,xOrig);
-    meanErr = sum(abs(yy-yOrig))/numPoints;
-    maxErr = max(abs(yy-yOrig));
-    %FPRINTF formatted output: Error values are printed with 5 decimal 
-    %places and 14 chars of total width, so the corresponding format spec 
-    % is either %14.5E or %14.4e.
-    fprintf(1,'%3d%14.5E%14.5E\n',degree(i),meanErr,maxErr);
+for i=degree
+    p=polyfit(x,y,i);
+    yy=polyval(p,xOrig);
+    meanErr=norm(yy-yOrig,1)/numPoints;
+    %meanErr=sum(abs(yy-yOrig))/numPoints; %alternatively
+    maxErr=norm(yy-yOrig,inf);
+    %maxErr=max(abs(yy-yOrig));            %alternatively
+    fprintf(1,'%3d%14.5E%14.5E\n',i,meanErr,maxErr);
 end    
-    
+
+%Remark (on formatSpecs)
+%               i: integer with a field width of 3 digits: %3d
+% menaErr, maxErr: floating pointn umbers, in exponential notation, with a  
+%                  field width of 14 digits, including the exponential part, 
+%                  and 5 digits after the decimal point: %14.5E, or %14.5e
