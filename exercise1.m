@@ -27,7 +27,6 @@ for i=deg
     maxErr=norm(pxx-yy,inf);
     %maxErr=max(abs(pxx-yy)); %alternatively
     fprintf('%3d%10.4f%10.4f\n',i,meanErr,maxErr) 
-    
 end    
 
 %Remark (on formatSpecs)
