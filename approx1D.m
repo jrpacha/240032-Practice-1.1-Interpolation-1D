@@ -105,6 +105,6 @@ end
 
 %Remark (on formatSpecs)
 %               i: integer with a field width of 3 digits: %3d
-% menaErr, maxErr: floating pointn umbers, in exponential notation, with a  
+% menaErr, maxErr: floating poinnt numbers, in exponential notation, with a  
 %                  field width of 14 digits, including the exponential part, 
 %                  and 5 digits after the decimal point: %14.5E, or %14.5e
