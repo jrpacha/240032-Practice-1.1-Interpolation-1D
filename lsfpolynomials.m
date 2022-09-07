@@ -6,7 +6,7 @@ close all
 %f = @(x) exp(x/2).*sin(2*x);
 %f = @(x) 1./(1+x.^2);
 f = @(x) 1./(1+25*x.^2); %Runge phenomenon....
-a = -1; b = 1; numSamplePoints = 11; degree = 10;
+a = -1; b = 1; numSamplePoints = 11; degree = 4;
 
 % To plot the original funciton
 delta = 0.01;
