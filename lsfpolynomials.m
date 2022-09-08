@@ -17,7 +17,7 @@ y = f(x);
 %Generate table
 T = sample(f,a,b,numSamplePoints);
 
-%Plot sample
+%Plot the sample
 plot(T.DataX, T.DataY, 'o', 'MarkerFaceColor','red', 'MarkerSize', 6)
 hold on
 plot(x,y,'--','color','green','LineWidth',1);
