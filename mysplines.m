@@ -62,14 +62,12 @@ hold off
 format short e
 format compact
 
-%Create a table
+%Create a Matlab table
 MeanErr = [norm(fM-lM,1)/M1; norm(fM-sM)/M1];
 MaxErr = [norm(fM-lM,Inf); norm(fM-sM,Inf)];
 
 ErrSplines = array2table([MeanErr, MaxErr],...
     'VariableNames',{'Mean Err.','Max. Err.'},...
     'RowNames',{'Linear Spline';'Cubic Spline'});
-
-%ErrSplines = table(ErrSplines,'VariableNames',{'Mean and Max Errors'}); % Nested table
 
 disp(ErrSplines);
