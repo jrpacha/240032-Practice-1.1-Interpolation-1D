@@ -7,6 +7,7 @@ close all
 a = -1.0; b= 1.0; N = 10; M = 200; n = 5; %degree of LSF polynomial 
 
 % Inline functions
+%f = @(x) exp(x/2).*sin(2*x);
 %f = @(x) 1./(1 + x.^2);
 f = @(x) 1./(1 + 25*x.^2); %To show runge's phenomenon
 
@@ -28,10 +29,10 @@ for i = 1:size(degrees,2)
     plot(xM,pM,'b-','LineWidth',1.5)
     if degrees(i) < N
         title(['Degree ', num2str(degrees(i)), 'LSF-approx.'])
-        legend('Sample points','LSF polynomial','Function')
+        %legend('Sample points','LSF polynomial','Function')
     else
         title(['Degree ', num2str(degrees(i)), 'Interp.'])
-        legend('Sample points','Interp. polynomial','Function')
+        %legend('Sample points','Interp. polynomial','Function')
     end
     axis([-1,1,-0.2,1])
     hold off
@@ -42,7 +43,7 @@ end
 % Lineal Splines: interp1
 lM = interp1(xN,fN,xM);
 subplot(3,2,5);
-plot(xp,yp,'Marker','o','MarkerFaceColor','black','MarkerSize',3)
+plot(xN,fN,'Marker','o','MarkerFaceColor','black','MarkerSize',3)
 hold on
 plot(xM,fM,'r-','LineWidth',1.5)
 plot(xM,lM,'b-','LineWidth',1.5)
@@ -52,7 +53,7 @@ hold off
 % Cúbic splines: spline
 sM = spline(xN,fN,xM);
 subplot(3,2,6);
-plot(xp,yp,'o','MarkerFaceColor','green','MarkerSize',3)
+plot(xN,fN,'o','MarkerFaceColor','green','MarkerSize',3)
 hold on
 plot(xM,fM,'r-','LineWidth',1.5)
 plot(xM,sM,'b-','LineWidth',1.5)
@@ -66,7 +67,7 @@ fprintf('%5s%12s%12s\n','deg','Mean Err.','Max. Err.')
 for n = degrees
     pn = polyfit(xN, fN, n);
     pM = polyval(pn,xM);
-    meanErr = norm(fM-pM,1)/m;
+    meanErr = norm(fM-pM,1)/M1;
     maxErr = norm(fM-pM,Inf);
-    fprintf('%5d%12.4f%12.4f\n',n,meanErr,maxErr)
+    fprintf('%5d%12.4e%12.4e\n',n,meanErr,maxErr)
 end
