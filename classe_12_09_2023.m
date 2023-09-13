@@ -4,7 +4,7 @@
 clearvars
 close all
 
-a = -1.0; b= 1.0; N = 10; M = 200; n = 5; %degree of LSF polynomial 
+a = -1.0; b= 1.0; N = 10; M = 200; 
 
 % Inline functions
 %f = @(x) exp(x/2).*sin(2*x);
