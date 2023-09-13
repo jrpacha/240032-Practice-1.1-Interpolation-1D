@@ -1,55 +1,75 @@
 clearvars
 close all
 
-a = -1.0; b = 1.0; N = 10; M = 200; n = 10; % (n = 1,...,N)
+a = -1.0; b = 1.0; N = 10; M = 200;
 f = @(x) 1./(1 + 25*x.^2);
 
 %Partitions
+
 %Coarse partition
 xN = linspace(a,b,N+1); fN = f(xN); 
 
 %Finer partition
-xM = linspace(a,b,M+1); fM = f(xM);
+xM = linspace(a,b,M+1); M1 = length(xM); fM = f(xM);
 
-%Linear splines (polygonal): interp1
-lM = interp1(xN, fN, xM);
-
-plot(xN, fN, 'ok');
-hold on
-plot(xM, fM, 'g-');
-plot(xM, lM, 'r-');
-
-hold off
-
-%Error 
-
-%Mean error
-fprintf('Error. Linear splines (polygonal)\n')
-meanErr = norm(fM-lM,1)/(M+1);
-fprintf('degree: %d Mean Error: %8.4e\n', n, meanErr)
-
-%Max error
-maxErr = norm(fM-lM,inf);
-fprintf('degree: %d Max. Error: %8.4e\n', n, maxErr)
-
-%Cubic splines: spline
-sM = spline(xN, fN, xM);
-
+%Linear spline (polygonal): interp1
+lM = interp1(xN,fN,xM);
 figure()
-plot(xN, fN, 'ok');
+set(gcf,'defaultTextInterpreter','LaTeX')
+subplot(1,2,1)
+plot(xN,fN,'o',...
+        'Marker','o',...
+        'MarkerFaceColor','black',...
+        'MarkerEdgeColor',...
+        'black',...
+        'MarkerSize', 2, ...
+        'lineWidth',1)
+title('1D Linear spline approximation')
 hold on
-plot(xM, fM, 'b-');
-plot(xM, sM, 'r-');
-
+plot(xM,fM,'-','color','red')
+plot(xM,lM,"LineStyle",'-','color','blue')
+xlabel('$x$')
+ylabel('$y\quad$','rot', 360)
+ymax = max([fM,lM]);
+ymin = min([fM,lM])-0.1;
+axis([-1,1,ymin,ymax])
+pbaspect([1 1 1])
 hold off
 
-%Error 
+%Cubic spline: spline
+sM = spline(xN,fN,xM);
+subplot(1,2,2)
+plot(xN,fN,'o',...
+        'Marker','o',...
+        'MarkerFaceColor','black',...
+        'MarkerEdgeColor',...
+        'black',...
+        'MarkerSize', 2, ...
+        'lineWidth',1)
+title('1D cubic spline approximation')
+hold on
+plot(xM,fM,'-','color','red')
+plot(xM,sM,"LineStyle",'-','color','blue')
+xlabel('$x$')
+ylabel('$y\quad$','rot', 360)
+ymax = max([fM,sM]);
+ymin = min([fM,sM])-0.1;
+axis([-1,1,ymin,ymax])
+pbaspect([1 1 1])
+hold off
 
-%Mean error
-fprintf('Error. Cubic splines')
-meanErr = norm(fM-sM,1)/(M+1);
-fprintf('degree: %d Mean Error: %8.4e\n', n, meanErr)
+%Errors 
+format short e
+format compact
 
-%Max error
-maxErr = norm(fM-sM,inf);
-fprintf('degree: %d Max. Error: %8.4e\n', n, maxErr)
+%Create a table
+MeanErr = [norm(fM-lM,1)/M1; norm(fM-sM)/M1];
+MaxErr = [norm(fM-lM,Inf); norm(fM-sM,Inf)];
+
+ErrSplines = array2table([MeanErr, MaxErr],...
+    'VariableNames',{'Mean Err.','Max. Err.'},...
+    'RowNames',{'Linear Spline';'Cubic Spline'});
+
+%ErrSplines = table(ErrSplines,'VariableNames',{'Mean and Max Errors'}); % Nested table
+
+disp(ErrSplines);
